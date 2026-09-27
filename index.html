@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aportes y Ofrendas</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            text-align: center;
+            padding: 15px 10px;
+            margin: 0;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        h1 { 
+            color: #2c3e50; 
+            font-size: 24px; 
+            margin-top: 0;
+        }
+        
+        .bank-details {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: left;
+            font-size: 14.5px;
+            background: #f9f9f9;
+            padding: 20px 15px;
+            border-radius: 10px;
+            
+            /* ESTO SOLUCIONA EL CORTE EN CELULARES: Obliga al correo largo a bajar de línea */
+            word-break: break-word; 
+            overflow-wrap: break-word;
+        }
+        
+        .bank-details h3 { 
+            margin-top: 0; 
+            font-size: 17px; 
+            color: #2c3e50; 
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .bank-details p {
+            margin: 8px 0;
+            color: #333;
+        }
+
+        .btn-copy {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            border: 2px solid #2980b9;
+            background-color: transparent;
+            color: #2980b9;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-copy:hover {
+            background-color: #2980b9;
+            color: white;
+        }
+        
+        .btn-copy.copiado {
+            background-color: #27ae60;
+            border-color: #27ae60;
+            color: white;
+        }
+        
+        .contact-info {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .contact-info h3 {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenido</h1>
+        <p>Gracias por tu generosidad. Aquí encontrarás los datos para realizar tu diezmo u ofrenda.</p>
+        <!-- SECCIÓN OFRENDA -->
+        <div class="bank-details">
+            <h3>Datos Transferencia Ofrenda</h3>
+            <p><strong>Banco:</strong> BancoEstado</p>
+            <p><strong>Tipo de Cuenta:</strong> Cuenta Rut</p>
+            <p><strong>Número:</strong> 163073455</p>
+            <p><strong>RUT:</strong> 16.307.345-5</p>
+            <p><strong>Nombre:</strong> Andrea Maturana</p>
+            
+            <button class="btn-copy" id="btnOfrenda" onclick="copiarOfrenda()">📋 Copiar Datos</button>
+
+            <div class="contact-info">
+                <h3><strong>Recuerda enviar tu comprobante a:</strong></h3>
+                <p><strong>Email:</strong> finanzascasadefeyesperanza@gmail.com</p>
+                <p><strong>WhatsApp:</strong> +56 9 7684 9377</p>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DIEZMO -->
+        <div class="bank-details">
+            <h3>Datos Transferencia Diezmo</h3>
+            <p><strong>Banco:</strong> Banco Chile</p>
+            <p><strong>Tipo de Cuenta:</strong> Cuenta Vista</p>
+            <p><strong>Número:</strong> 1716069</p>
+            <p><strong>RUT:</strong> 15.415.087-0</p>
+            <p><strong>Nombre:</strong> Pastor Victor Tapia Venegas</p>
+            
+            <button class="btn-copy" id="btnDiezmo" onclick="copiarDiezmo()">📋 Copiar Datos</button>
+
+            <div class="contact-info">
+                <h3><strong>Recuerda enviar tu comprobante a:</strong></h3>
+                <p><strong>Email:</strong> finanzascasadefeyesperanza@gmail.com</p>
+                <p><strong>WhatsApp:</strong> +56 9 9201 5011</p>
+            </div>
+            <h3>Casa de fe y esperanza</h3>
+        </div>
+    </div>
+
+    <script>
+        const textoOfrenda = "Nombre: Andrea Maturana\nRUT: 16.307.345-5\nBanco: BancoEstado\nTipo de cuenta: Cuenta Rut\nNúmero de cuenta: 163073455\nCorreo: finanzascasadefeyesperanza@gmail.com";
+        
+        const textoDiezmo = "Nombre: Pastor Victor Tapia Venegas\nRUT: 15.415.087-0\nBanco: Banco Chile\nTipo de cuenta: Cuenta Vista\nNúmero de cuenta: 1716069\nCorreo: finanzascasadefeyesperanza@gmail.com";
+
+        function copiarAlPortapapeles(texto, idBoton) {
+            navigator.clipboard.writeText(texto).then(() => {
+                const btn = document.getElementById(idBoton);
+                
+                btn.innerHTML = "✅ ¡Copiado!";
+                btn.classList.add("copiado");
+                
+                setTimeout(() => {
+                    btn.innerHTML = "📋 Copiar Datos";
+                    btn.classList.remove("copiado");
+                }, 2500);
+            }).catch(err => {
+                console.error('Error al copiar: ', err);
+                alert("Tu navegador no permite copiar automáticamente. Por favor, selecciona el texto y cópialo de forma manual.");
+            });
+        }
+
+        function copiarOfrenda() {
+            copiarAlPortapapeles(textoOfrenda, 'btnOfrenda');
+        }
+
+        function copiarDiezmo() {
+            copiarAlPortapapeles(textoDiezmo, 'btnDiezmo');
+        }
+    </script>
+</body>
+</html>
